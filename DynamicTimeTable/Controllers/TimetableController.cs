@@ -38,28 +38,47 @@ namespace DynamicTimeTable.Controllers
         private List<List<string>> GenerateSchedule(TimetableModel model)
         {
             var timetable = new List<List<string>>();
-            var subjects = new List<string>();
+            var random = new Random();
 
-            foreach (var subject in model.SubjectHoursList)
+            // Create a dictionary to track remaining hours for each subject
+            var subjectHours = model.SubjectHoursList.ToDictionary(s => s.SubjectName, s => s.Hours);
+
+            // Get all subjects
+            var allSubjects = subjectHours.Keys.ToList();
+
+            // Initialize timetable
+            for (int day = 0; day < model.WorkingDays; day++)
             {
-                subjects.AddRange(Enumerable.Repeat(subject.SubjectName, subject.Hours));
+                timetable.Add(new List<string>());
             }
 
-            var random = new Random();
-            subjects = subjects.OrderBy(x => random.Next()).ToList();
-
-            for (int i = 0; i < model.SubjectsPerDay; i++)
+            // Fill timetable while ensuring no subject repeats in a single day
+            for (int slot = 0; slot < model.SubjectsPerDay; slot++)
             {
-                var row = new List<string>();
-                for (int j = 0; j < model.WorkingDays; j++)
+                for (int day = 0; day < model.WorkingDays; day++)
                 {
-                    row.Add(subjects.FirstOrDefault() ?? "N/A");
-                    subjects.RemoveAt(0);
+                    var usedSubjects = new HashSet<string>(timetable[day]); // Prevent repetition
+
+                    // Get available subjects that have remaining hours and are not used today
+                    var availableSubjects = allSubjects
+                        .Where(s => subjectHours[s] > 0 && !usedSubjects.Contains(s))
+                        .ToList();
+
+                    if (!availableSubjects.Any()) continue; // Skip if no valid subjects
+
+                    // Pick a random subject
+                    var selectedSubject = availableSubjects[random.Next(availableSubjects.Count)];
+
+                    // Assign subject and reduce remaining hours
+                    timetable[day].Add(selectedSubject);
+                    subjectHours[selectedSubject]--;
                 }
-                timetable.Add(row);
             }
 
             return timetable;
         }
+
+
+
     }
 }

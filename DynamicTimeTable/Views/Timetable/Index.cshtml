@@ -9,24 +9,85 @@
 @{
     ViewData["Title"] = "Dynamic Timetable";
 }
+<style>
 
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+h2 {
+    text-align: justify;
+    color: #333;
+}
+
+div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+span {
+    color: red;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    background: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+</style>
 <h2>Enter Timetable Details</h2>
 <form method="post" asp-action="GenerateTimetable">
     <div>
         <label>Working Days:</label>
-        <input asp-for="WorkingDays" type="number" required />
+        <input asp-for="WorkingDays" type="text" required />
         <span asp-validation-for="WorkingDays"></span>
     </div>
 
     <div>
         <label>Subjects Per Day:</label>
-        <input asp-for="SubjectsPerDay" type="number" required />
+        <input asp-for="SubjectsPerDay" type="text" required />
         <span asp-validation-for="SubjectsPerDay"></span>
     </div>
 
     <div>
         <label>Total Subjects:</label>
-        <input asp-for="TotalSubjects" type="number" required />
+        <input asp-for="TotalSubjects" type="text" required />
         <span asp-validation-for="TotalSubjects"></span>
     </div>
 
