@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model DynamicTimeTable.Models.TimetableModel
+
+@{
+    ViewData["Title"] = "Enter Subject Hours";
+}
+
+<h2>Enter Total Hours for Each Subject</h2>
+<p>Total Hours for the Week: @ViewBag.TotalHoursForWeek</p>
+
+<form method="post" asp-action="CreateTimetable">
+    <input type="hidden" asp-for="WorkingDays" />
+    <input type="hidden" asp-for="SubjectsPerDay" />
+    <input type="hidden" asp-for="TotalSubjects" />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Subject Name</th>
+                <th>Hours</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.TotalSubjects; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="text" name="SubjectHoursList[@i].SubjectName" required />
+                    </td>
+                    <td>
+                        <input type="number" name="SubjectHoursList[@i].Hours" required />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit">Generate Timetable</button>
+</form>
+
