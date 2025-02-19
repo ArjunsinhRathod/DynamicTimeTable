@@ -10,20 +10,8 @@
     ViewData["Title"] = "Generated Timetable";
 }
 <style>
-  /*   body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    flex-direction: column;
-    padding: 20px;
-} */
-
 h2 {
-    text-align: center;
+    text-align: justify;
     color: #333;
     font-size: 26px;
     margin-bottom: 20px;
@@ -70,18 +58,6 @@ td {
     font-weight: 500;
     color: #333;
 }
-/* 
-@@media (max-width: 768px) {
-    table {
-        width: 100%;
-    }
-
-    th, td {
-        font-size: 14px;
-        padding: 10px;
-    }
-} */
-
 </style>
 <h2>Final Timetable</h2>
 
@@ -106,3 +82,4 @@ td {
         }
     </tbody>
 </table>
+<a asp-action="Index" asp-controller="Timetable">Back To Home</a>

@@ -71,23 +71,24 @@ button:hover {
 }
 
 </style>
+
 <h2>Enter Timetable Details</h2>
 <form method="post" asp-action="GenerateTimetable">
     <div>
         <label>Working Days:</label>
-        <input asp-for="WorkingDays" type="text" required />
+        @Html.TextBoxFor(model => model.WorkingDays, new { @class = "form-control", placeholder = "Enter working days (e.g 5)" })
         <span asp-validation-for="WorkingDays"></span>
     </div>
 
     <div>
         <label>Subjects Per Day:</label>
-        <input asp-for="SubjectsPerDay" type="text" required />
+        @Html.TextBoxFor(model => model.SubjectsPerDay, new { @class = "form-control", placeholder = "Enter a SubjectsPerDay (e.g 5)" })
         <span asp-validation-for="SubjectsPerDay"></span>
     </div>
 
     <div>
         <label>Total Subjects:</label>
-        <input asp-for="TotalSubjects" type="text" required />
+        @Html.TextBoxFor(model => model.TotalSubjects, new { @class = "form-control", placeholder = "Total subjects (e.g 5)" })
         <span asp-validation-for="TotalSubjects"></span>
     </div>
 

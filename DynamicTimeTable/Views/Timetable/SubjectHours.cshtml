@@ -10,17 +10,6 @@
     ViewData["Title"] = "Enter Subject Hours";
 }
 <style>
-   /*  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    flex-direction: column;
-} */
-
 h2 {
     text-align: justify;
     color: #333;
@@ -102,21 +91,17 @@ button {
 button:hover {
     background: #0056b3;
 }
-
-/* @@media (max-width: 600px) {
-    form {
-        width: 90%;
-    }
-
-    th, td {
-        font-size: 14px;
-    }
-} */
-
 </style>
+
 <h2>Enter Total Hours for Each Subject</h2>
 <p>Total Hours for the Week: @ViewBag.TotalHoursForWeek</p>
 
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="text-danger">
+        @Html.ValidationSummary(true)
+    </div>
+}
 <form method="post" asp-action="CreateTimetable">
     <input type="hidden" asp-for="WorkingDays" />
     <input type="hidden" asp-for="SubjectsPerDay" />
@@ -134,10 +119,10 @@ button:hover {
             {
                 <tr>
                     <td>
-                         <input type="text" name="SubjectHoursList[@i].SubjectName" required />
+                         <input type="text" name="SubjectHoursList[@i].SubjectName" placeholder="Enter Subject Name" required />
                     </td>
                     <td>
-                        <input type="number" name="SubjectHoursList[@i].Hours" required />
+                        <input type="number" name="SubjectHoursList[@i].Hours" placeholder="Enter Subject Hours" required />
                     </td>
                 </tr>
             }
@@ -145,5 +130,7 @@ button:hover {
     </table>
 
     <button type="submit">Generate Timetable</button>
+    <a asp-action="Index" asp-controller="Timetable" >Back</a>
+
 </form>
 
